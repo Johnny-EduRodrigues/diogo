@@ -23,17 +23,19 @@
 <div class="atulizar">
     <h1>Atualize os Pedidos</h1>
     
-    <form action="atualizar-pedido" method="POST">
-        
-        <label for="campo_prato">Nome do Prato:</label>
-        <input type="text" id="campo_prato" name="atualizar_prato" placeholder="Ex: Hambúrguer" required>
-        
+    <form action="/atualizar_pedidos" method="post">
+
+        <label>Mesa:</label>
+        <input type="text" name="mesa">
+
+        <label>Novo prato:</label>
+        <input type="text" name="novo_prato">
+
+        <button type="submit">Atualizar pedido</button>
+
+    </form>
         <br><br>
-
- 
-
         <br><br>
-
         <button type="submit">Atualizar para a Cozinha 👨‍🍳</button>
     </form>
 </div>

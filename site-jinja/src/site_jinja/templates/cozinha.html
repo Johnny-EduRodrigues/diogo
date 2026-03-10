@@ -22,8 +22,21 @@
 
     <div class="atulizar">    
       <a href="/atualizar_pedidos"><button type="button">Atualizar Pedido</button></a>
-
     </div>
+
+<div class="terminar">
+    <h1>Mandar pedido para o balcão!</h1>
+
+    <form action="/balcao" method="post">
+
+        <label>Mesa:</label>
+        <input type="text" name="mesa">
+
+        <button type="submit">Mandar pedido para o balcão</button>
+
+    </form>
+</div>
+
 </div>
 
 {% endblock %}

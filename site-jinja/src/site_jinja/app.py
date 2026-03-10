@@ -8,7 +8,10 @@ app = Flask(__name__)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
+#criando variaveis
 lista_pedidos = []
+lista_pedidos = []
+pedidos_balcao = []
 
 # Criando uma ROTA (o endereço do site)
 @app.route("/")
@@ -49,13 +52,40 @@ def pedidos_recebidos():
     return render_template("cozinha.html", pedidos=lista_pedidos,existe_pedidos=existe_pedidos, hoje=data)
 
 #atualizar pedido
-@app.route("/atualizar_pedidos")
+@app.route("/atualizar_pedidos", methods=["GET", "POST"])
 def atualizar_pedidos():
+
+    if request.method == "POST":
+        mesa = request.form.get("mesa")
+        novo_prato = request.form.get("novo_prato")
+
+        for pedido in lista_pedidos:
+            if pedido["mesa"] == mesa:
+                pedido["prato"] = novo_prato
+
     existe_pedidos = len(lista_pedidos) > 0
     data = datetime.now()
-    atualizar_prato = request.form.get('nome_do_prato')
-    return render_template("atualizar.html", pedidos=lista_pedidos,existe_pedidos=existe_pedidos, hoje=data, atualizadao=atualizar_prato)
 
+    return render_template(
+        "atualizar.html",
+        pedidos=lista_pedidos,
+        existe_pedidos=existe_pedidos,
+        hoje=data
+    )
+    
+@app.route("/balcao", methods=["GET","POST"])
+def balcao():
+
+    if request.method == "POST":
+        mesa = request.form.get("mesa")
+
+        for pedido in lista_pedidos:
+            if pedido["mesa"] == mesa:
+                pedidos_balcao.append(pedido)
+                lista_pedidos.remove(pedido)
+                break
+
+    return render_template("balcao_pedidos.html", pedidos=pedidos_balcao)
 
 @app.template_filter('datetime_format')
 def datetime_format(value, format="%H:%M %d-%m-%y"):

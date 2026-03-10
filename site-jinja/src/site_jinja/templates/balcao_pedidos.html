@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<h1>Pedidos no Balcão</h1>
+
+{% for pedido in pedidos %}
+<p>Mesa {{pedido.mesa}} - {{pedido.prato}}</p>
+{% endfor %}
+
+{% endblock %}
